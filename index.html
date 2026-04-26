@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박준호 - Frontend Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        border: '#334155',
+                        accent: '#3b82f6',
+                        'accent-light': '#60a5fa',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #60a5fa;
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #60a5fa;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+        }
+
+        .skill-badge {
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-slate-950/95 backdrop-blur border-b border-slate-700 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#home" class="text-xl font-bold text-accent-light">박준호</a>
+
+                <!-- Mobile menu button -->
+                <button id="menuBtn" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" id="menuIcon"></path>
+                    </svg>
+                </button>
+
+                <!-- Desktop menu -->
+                <div id="navMenu" class="hidden md:flex gap-8">
+                    <a href="#home" class="nav-link text-slate-300 hover:text-accent-light active">Home</a>
+                    <a href="#about" class="nav-link text-slate-300 hover:text-accent-light">About</a>
+                    <a href="#skills" class="nav-link text-slate-300 hover:text-accent-light">Skills</a>
+                    <a href="#projects" class="nav-link text-slate-300 hover:text-accent-light">Projects</a>
+                    <a href="#contact" class="nav-link text-slate-300 hover:text-accent-light">Contact</a>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="#home" class="block px-2 py-2 text-slate-300 hover:text-accent-light hover:bg-slate-800 rounded">Home</a>
+                <a href="#about" class="block px-2 py-2 text-slate-300 hover:text-accent-light hover:bg-slate-800 rounded">About</a>
+                <a href="#skills" class="block px-2 py-2 text-slate-300 hover:text-accent-light hover:bg-slate-800 rounded">Skills</a>
+                <a href="#projects" class="block px-2 py-2 text-slate-300 hover:text-accent-light hover:bg-slate-800 rounded">Projects</a>
+                <a href="#contact" class="block px-2 py-2 text-slate-300 hover:text-accent-light hover:bg-slate-800 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 to-slate-900 pt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="fade-in">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        Hi, I'm
+                        <br>
+                        <span class="text-accent-light">박준호</span>
+                    </h1>
+                    <div class="text-2xl md:text-3xl text-slate-400 mb-8 h-12">
+                        I'm a <span id="typing" class="text-accent"></span><span class="cursor"></span>
+                    </div>
+                    <p class="text-slate-300 text-lg mb-8 max-w-lg leading-relaxed">
+                        아름다운 웹 경험을 만드는 것을 좋아하는 개발자입니다. 사용자 친화적인 인터페이스 설계에 열정이 있으며, 성능과 접근성을 중요하게 생각합니다.
+                    </p>
+                    <div class="flex gap-4 flex-wrap">
+                        <a href="#contact" class="px-8 py-3 bg-accent-light text-slate-950 font-semibold rounded-lg hover:bg-accent transition">
+                            Get in Touch
+                        </a>
+                        <a href="#projects" class="px-8 py-3 border-2 border-accent-light text-accent-light font-semibold rounded-lg hover:bg-slate-800 transition">
+                            View My Work
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="fade-in" style="animation-delay: 0.2s;">
+                    <div class="w-full aspect-square bg-gradient-to-br from-accent-light to-accent rounded-2xl flex items-center justify-center">
+                        <div class="text-center">
+                            <svg class="w-32 h-32 text-slate-950 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-16 text-center">About Me</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">3+</div>
+                    <p class="text-slate-400 mt-2">Years Experience</p>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-number">20+</div>
+                    <p class="text-slate-400 mt-2">Projects Completed</p>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-number">15+</div>
+                    <p class="text-slate-400 mt-2">Technologies</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-8 max-w-3xl mx-auto border border-slate-700 fade-in">
+                <p class="text-slate-300 text-lg leading-relaxed mb-4">
+                    저는 웹 개발의 모든 측면에 열정을 가지고 있습니다. 깔끔한 코드, 직관적인 디자인, 그리고 뛰어난 성능이 제 개발 철학입니다.
+                </p>
+                <p class="text-slate-300 text-lg leading-relaxed">
+                    React, Vue.js와 같은 최신 프레임워크부터 Node.js 백엔드까지, 풀스택 개발 경험을 가지고 있습니다. 항상 새로운 기술을 배우고 프로젝트에 적용하는 것을 즐깁니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-16 text-center">Technical Skills</h2>
+
+            <div class="space-y-12">
+                <!-- Frontend -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-accent-light mb-6">Frontend</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            HTML
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            CSS
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            JavaScript
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            React
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Vue.js
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Tailwind CSS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="fade-in" style="animation-delay: 0.1s;">
+                    <h3 class="text-2xl font-semibold text-accent-light mb-6">Backend</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Node.js
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Express
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Python
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            MongoDB
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            PostgreSQL
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            REST API
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="fade-in" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-semibold text-accent-light mb-6">Tools & Others</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Git
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Docker
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Figma
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Webpack
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            Testing
+                        </div>
+                        <div class="skill-badge bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-center hover:border-accent-light">
+                            AWS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-16 text-center">Featured Projects</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-slate-800 rounded-xl overflow-hidden border border-slate-700 fade-in">
+                    <div class="h-48 bg-gradient-to-br from-accent-light to-accent flex items-center justify-center">
+                        <svg class="w-24 h-24 text-slate-950 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Task Management App</h3>
+                        <p class="text-slate-400 mb-4">
+                            React와 Firebase로 만든 실시간 협업 작업 관리 애플리케이션. 드래그 앤 드롭, 실시간 동기화 지원.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Firebase</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Tailwind</span>
+                        </div>
+                        <a href="#" class="inline-block text-accent-light hover:text-accent font-semibold">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card bg-slate-800 rounded-xl overflow-hidden border border-slate-700 fade-in" style="animation-delay: 0.1s;">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-2.08-2.71c-.2-.26-.53-.4-.85-.4-.32 0-.65.14-.86.41L6.5 17h11l-3.54-4.71z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Weather Dashboard</h3>
+                        <p class="text-slate-400 mb-4">
+                            OpenWeather API를 활용한 날씨 정보 대시보드. 지역별 5일 예보, 반응형 디자인.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">API</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Charts</span>
+                        </div>
+                        <a href="#" class="inline-block text-accent-light hover:text-accent font-semibold">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card bg-slate-800 rounded-xl overflow-hidden border border-slate-700 fade-in" style="animation-delay: 0.2s;">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white opacity-50" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-commerce Platform</h3>
+                        <p class="text-slate-400 mb-4">
+                            Node.js와 MongoDB 기반의 전자상거래 플랫폼. 장바구니, 결제, 주문 관리 시스템 포함.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Node.js</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">MongoDB</span>
+                            <span class="bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm">Stripe</span>
+                        </div>
+                        <a href="#" class="inline-block text-accent-light hover:text-accent font-semibold">
+                            View Project →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+            <h2 class="text-4xl font-bold mb-6">Get In Touch</h2>
+            <p class="text-slate-300 text-lg mb-12 max-w-2xl mx-auto">
+                새로운 프로젝트나 협업 기회에 관심이 있으신가요? 언제든지 연락 주세요. 빠르게 응답하겠습니다!
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+                <a href="mailto:acdongedb@gmail.com" class="flex items-center gap-3 px-8 py-4 bg-accent-light text-slate-950 font-semibold rounded-lg hover:bg-accent transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    Send Email
+                </a>
+                <a href="https://github.com/ppuddinge86" target="_blank" class="flex items-center gap-3 px-8 py-4 border-2 border-accent-light text-accent-light font-semibold rounded-lg hover:bg-slate-800 transition">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Visit GitHub
+                </a>
+            </div>
+
+            <p class="text-slate-500 text-sm">
+                또는 이메일로 직접 연락주세요: <span class="text-slate-300 font-semibold">acdongedb@gmail.com</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-700 py-8 text-center text-slate-500">
+        <p>&copy; 2024 박준호. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Typing animation
+        const roles = ['Frontend Developer', 'UI Designer', 'Problem Solver'];
+        let currentRole = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing');
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const delayBetweenRoles = 2000;
+
+        function typeRole() {
+            const role = roles[currentRole];
+
+            if (!isDeleting && currentChar < role.length) {
+                typingElement.textContent += role[currentChar];
+                currentChar++;
+                setTimeout(typeRole, typingSpeed);
+            } else if (isDeleting && currentChar > 0) {
+                typingElement.textContent = role.substring(0, currentChar - 1);
+                currentChar--;
+                setTimeout(typeRole, deletingSpeed);
+            } else if (!isDeleting && currentChar === role.length) {
+                isDeleting = true;
+                setTimeout(typeRole, delayBetweenRoles);
+            } else if (isDeleting && currentChar === 0) {
+                isDeleting = false;
+                currentRole = (currentRole + 1) % roles.length;
+                setTimeout(typeRole, 500);
+            }
+        }
+
+        typeRole();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.remove('opacity-0');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navigation menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Active nav link on scroll
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
